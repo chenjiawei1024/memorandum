@@ -3,8 +3,8 @@
 </script>
 
 <template>
-<router-view></router-view>
-</template> 
+    <div>about page</div>
+</template>
 
 <style>
 </style>
