@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from "./router"
 
 //引入全局样式表
-import "./assets/global.css"
+import "./assets/css/global.css"
 
 const app = createApp(App)
 app.use(router)
