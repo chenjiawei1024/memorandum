@@ -8,8 +8,18 @@
             <!-- 左侧边栏 -->
             <div class="leftSide">
                 <div class="idCard"></div>
-                <div class="settingBox"></div>
-                <div class="navList"></div>
+                <div class="settingBox">
+                    <div class="setting"><img style="margin-right: 5px" src="../assets/image/dashboard.svg"> dashboard</div>
+                    <div class="setting"><img style="margin-right: 5px" src="../assets/image/setting.svg"> setting</div>
+                    <div class="setting"><img style="margin-right: 5px" src="../assets/image/activity.svg"> activities</div>
+                </div>
+                <div class="navList">
+                    <div class="navItem"></div>
+                    <div class="navItem"></div>
+                    <div class="navItem"></div>
+                    <div class="navItem"></div>
+                    <div class="navItem"></div>
+                </div>
                 <div class="button"></div>
             </div>
             <!-- 主内容 -->
@@ -59,16 +69,31 @@
                 box-shadow: 0px 3px 10px -3px  rgba(0, 0, 0, 0.1);
             }
             .settingBox {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
                 width: 140px;
                 height: 120px;
-                background-color: blue;
-                margin-top: 10px;
+                // background-color: blue;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                color: #bfbfbf;
+                font-size: 0.9em;
+                .setting {
+                    display: flex;
+                    align-items: center;
+                    height: 20px;
+                    margin-left: 10px;
+                }
             }
             .navList {
                 width: 140px;
-                height: 300px;
-                background-color: yellow;
-                margin-top: 20px;
+                .navItem {
+                    height: 30px;
+                    background-color: #ffffff;
+                    border-radius: 5px;
+                    box-shadow: 0px 3px 10px 3px  rgba(0, 0, 0, 0.05);
+                }
             }
             .button {
                 margin-top: 50px;
