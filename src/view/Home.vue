@@ -1,7 +1,3 @@
-<script setup lang="ts">
-  
-</script>
-
 <template>
     <div class="background">
         <div class="container">
@@ -9,18 +5,14 @@
             <div class="leftSide">
                 <div class="idCard"></div>
                 <div class="settingBox">
-                    <div class="setting"><img style="margin-right: 5px" src="../assets/image/dashboard.svg"> dashboard</div>
-                    <div class="setting"><img style="margin-right: 5px" src="../assets/image/setting.svg"> setting</div>
-                    <div class="setting"><img style="margin-right: 5px" src="../assets/image/activity.svg"> activities</div>
+                    <div class="setting"><img style="margin-right: 7px" src="../assets/image/dashboard.svg"> dashboard</div>
+                    <div class="setting"><img style="margin-right: 7px" src="../assets/image/setting.svg"> setting</div>
+                    <div class="setting"><img style="margin-right: 7px" src="../assets/image/activity.svg"> activities</div>
                 </div>
                 <div class="navList">
-                    <div class="navItem"></div>
-                    <div class="navItem"></div>
-                    <div class="navItem"></div>
-                    <div class="navItem"></div>
-                    <div class="navItem"></div>
+                    <nav-item v-for="item in navlist" key="item">{{item}}</nav-item>
                 </div>
-                <div class="button"></div>
+                <button>+ New Project</button>
             </div>
             <!-- 主内容 -->
             <div class="main">
@@ -31,6 +23,17 @@
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import NavItem from '../components/NavItem.vue';
+import { reactive,ref } from 'vue';
+const navlist: String[] = reactive([
+    "Daily Task",
+    "Item1",
+    "Item2"
+])
+</script>
+
 
 <style lang="less" scoped>
 .background {
@@ -59,6 +62,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            font-size: 0.8em;
             background-color: #f3f5f7;
             .idCard {
                 border-radius: 10px;
@@ -78,21 +82,41 @@
                 margin-top: 15px;
                 margin-bottom: 15px;
                 color: #bfbfbf;
-                font-size: 0.9em;
                 .setting {
                     display: flex;
                     align-items: center;
                     height: 20px;
                     margin-left: 10px;
+                    transition: color 0.3s;
+                }
+                .setting:hover {
+                    color: #515151;
                 }
             }
             .navList {
                 width: 140px;
+                height: 300px;
                 .navItem {
-                    height: 30px;
-                    background-color: #ffffff;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    height: 38px;
+                    background-color: #f3f5f7;
+                    padding-left: 4px;
                     border-radius: 5px;
-                    box-shadow: 0px 3px 10px 3px  rgba(0, 0, 0, 0.05);
+                    font-size: 1.1em;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                }
+                .navItem:hover {
+                    background-color: #ffffff;
+                    box-shadow: 0px 3px 20px -3px  rgba(0, 0, 0, 0.1);
+                    transform: scale(1.1);
+                }
+                .navItem:active {
+                    background-color: #ffffff;
+                    box-shadow: 0px 3px 20px -3px  rgba(0, 0, 0, 0.1);
+                    transform: scale(1.1);
                 }
             }
             .button {
