@@ -49,7 +49,7 @@ const navlist: String[] = reactive([
         width:1000px;
         height: 650px;
         background-color: #ffffff;
-        border-radius: 8%;
+        border-radius: 40px;  /* FOR ALL NEW BROWSER OF HIGHER VERSION*/ 
         box-shadow: 0px 6px 20px -6px  rgba(0, 0, 0, 0.1);
         .main {
             height: 100%;
@@ -64,6 +64,9 @@ const navlist: String[] = reactive([
             align-items: center;
             font-size: 0.8em;
             background-color: #f3f5f7;
+            border-top-left-radius: 40px;
+            border-bottom-left-radius: 40px;
+            overflow: hidden;
             .idCard {
                 border-radius: 10px;
                 width: 140px;
