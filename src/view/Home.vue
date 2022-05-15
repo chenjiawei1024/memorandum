@@ -19,13 +19,16 @@
                 <router-view></router-view>
             </div>
             <!-- 右侧输入框 -->
-            <div class="rightSide"></div>
+            <div class="rightSide">
+                <move-card></move-card>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import NavItem from '../components/NavItem.vue';
+import MoveCard from '../components/MoveCard.vue';
 import { reactive,ref } from 'vue';
 const navlist: String[] = reactive([
     "Daily Task",
