@@ -18,23 +18,20 @@
             <div class="main">
                 <router-view></router-view>
             </div>
-            <!-- 右侧输入框 -->
-            <div class="rightSide">
-                <move-card></move-card>
-            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import NavItem from '../components/NavItem.vue';
-import MoveCard from '../components/MoveCard.vue';
 import { reactive,ref } from 'vue';
 const navlist: String[] = reactive([
     "Daily Task",
     "Item1",
     "Item2"
 ])
+
+
 </script>
 
 
@@ -48,7 +45,7 @@ const navlist: String[] = reactive([
     background-color: #dedfea;
     .container {
         display: grid;
-        grid-template-columns: 175px 1fr 280px;
+        grid-template-columns: 175px 1fr;
         width:1000px;
         height: 650px;
         background-color: #ffffff;
@@ -56,9 +53,6 @@ const navlist: String[] = reactive([
         box-shadow: 0px 6px 20px -6px  rgba(0, 0, 0, 0.1);
         .main {
             height: 100%;
-            padding-left: 25px;
-            padding-right: 25px;
-            padding-top: 10px;
         }
         .leftSide {
             height: 100%;
@@ -131,10 +125,6 @@ const navlist: String[] = reactive([
                 height: 30px;
                 background-color: green;
             }
-        }
-        .rightSide {
-            height: 100%;
-            border-left:3px solid #fafafa;
         }
     }
 }

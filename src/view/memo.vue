@@ -1,66 +1,124 @@
 <template>
-  <div class="titleBoxContainer">
-    <div class="title">
-      <!-- 需要一个24px的勾 -->
-      <img  style="margin-right: 16px;" src="../assets/image/right.svg">
-      <h1>Daily Task</h1>
+  <div class="memo">
+    <!-- 中间主内容 -->
+    <div class="main">
+      <div class="titleBoxContainer">
+        <div class="title">
+          <img src="../assets/image/right.svg">
+          <h1>Daily Task</h1>
+        </div>
+        <p>something</p>
+      </div>
+      <div class="bodyBoxContainer">
+        <div class="subtitleBox">
+          <div class="subtitle" v-for="item in subtitles" key="item">{{item}}</div>
+        </div>
+        <div class="boxContainer">
+          <div class="box" v-for="item in containers" :id="item"></div>
+        </div>
+      </div>
     </div>
-    <p style="color: #bfbfbf;">something</p>
-  </div>
-  <div class="bodyBoxContainer">
-    <div class="subtitleBox">
-      <div class="subtitle" v-for="item in subtitles" key="item">{{item}}</div>
-    </div>
-    <div class="boxContainer">
-      <div class="box" v-for="index in 9"></div>
+    <!-- 右侧输入框 -->
+    <div class="rightSide">
+        <move-card id="card"></move-card>
+        <button style="margin-top: 300px" @click="createCard">生成卡片</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+import getElementPosition from '../tools/getElPosition'
+import MoveCard from '../components/MoveCard.vue';
 const subtitles = reactive([
   'Today',
   'Tomorrow',
   'Twodays Later'
 ])
+
+const containers = reactive<string[]>([
+  "card1","card2","card3","card4","card5","card6","card7","card8","card9"
+])
+
+const createCard = ():void => {
+    const createdCard = document.getElementById("card") as HTMLDivElement;
+    const card_container = document.getElementById("card1") as HTMLDivElement;
+    const prevLeft: number = getElementPosition(createdCard)[0];
+    const prevtop: number = getElementPosition(createdCard)[1];
+    createdCard.style.transition= "all 1s";
+    createdCard.style.boxShadow = "8px 8px 8px grey"
+    setTimeout(()=> {
+      console.log(prevLeft)
+      createdCard.style.left = card_container.offsetLeft - prevLeft - 3 + "px"
+      createdCard.style.top = card_container.offsetTop - prevtop + "px"
+    },1000)
+    setTimeout(()=> {
+        createdCard.style.boxShadow = "0px 3px 10px -3px  rgba(0, 0, 0, 0.1)"
+    },2000)
+}
 </script>
 
 <style lang="less" scoped>
-.titleBoxContainer {
-  height: 125px;
-  .title {
-    display: flex;
-  }
-}
-.bodyBoxContainer {
-  .subtitleBox {
-    display: grid;
-    grid-template-columns: repeat(3,153px);
-    grid-template-rows: 24px;
-    gap: 16px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 1em;
-    .subtitle {
-    font-size: 0.9em;
-    background-color: #f3f5f7;
-    padding: 5px;
-    border-radius: 5%;
-    box-shadow: 0px 3px 10px -3px  rgba(0, 0, 0, 0.1);
+.memo {
+  display: flex;
+  height: 100%;
+  .main {
+    flex: 1;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    .titleBoxContainer {
+      height: 125px;
+      p {
+        color: #bfbfbf;
+      }
+      .title {
+        display: flex;
+        img {
+          margin-right: 16px;
+        }
+      }
+    }
+    .bodyBoxContainer {
+      .subtitleBox {
+        display: grid;
+        grid-template-columns: repeat(3,153px);
+        grid-template-rows: 24px;
+        gap: 16px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 1em;
+        .subtitle {
+        font-size: 0.9em;
+        background-color: #f3f5f7;
+        padding: 5px;
+        border-radius: 5%;
+        box-shadow: 0px 3px 10px -3px  rgba(0, 0, 0, 0.1);
+        }
+      }
+      .boxContainer {
+        display: grid;
+        height: 450px;
+        grid-template-columns: repeat(3,153px);
+        grid-template-rows: repeat(3,115px);
+        gap: 16px;
+        overflow-y: scroll;
+      }
+      .box {
+        border-radius: 5%;
+        border: 3px solid #f3f5f7;
+      }
     }
   }
-  .boxContainer {
-    display: grid;
-    height: 450px;
-    grid-template-columns: repeat(3,153px);
-    grid-template-rows: repeat(3,115px);
-    gap: 16px;
-    overflow-y: scroll;
-  }
-  .box {
-    border-radius: 5%;
-    border: 3px solid #f3f5f7;
+  .rightSide {
+    position: relative;
+    box-sizing: border-box;
+    width: 280px;
+    height: 100%;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    border-left:3px solid #fafafa;
   }
 }
 </style>
