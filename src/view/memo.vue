@@ -1,7 +1,7 @@
 <template>
   <div class="memo">
     <!-- 中间主内容 -->
-    <div class="main">
+    <div class="main" id="main">
       <div class="titleBoxContainer">
         <div class="title">
           <img src="../assets/image/right.svg">
@@ -21,7 +21,11 @@
     <!-- 右侧输入框 -->
     <div class="rightSide">
         <move-card id="card"></move-card>
-        <button style="margin-top: 300px" @click="createCard">生成卡片</button>
+        <div class="inputContainer">
+          <el-input type="textarea"></el-input>
+          <el-button @click="createCard">生成卡片</el-button>
+        </div>
+        
     </div>
   </div>
 </template>
@@ -45,16 +49,15 @@ const createCard = ():void => {
     const card_container = document.getElementById("card1") as HTMLDivElement;
     const prevLeft: number = getElementPosition(createdCard)[0];
     const prevtop: number = getElementPosition(createdCard)[1];
-    createdCard.style.transition= "all 1s";
+    createdCard.style.transition= "all 0.8s";
     createdCard.style.boxShadow = "8px 8px 8px grey"
     setTimeout(()=> {
-      console.log(prevLeft)
       createdCard.style.left = card_container.offsetLeft - prevLeft - 3 + "px"
       createdCard.style.top = card_container.offsetTop - prevtop + "px"
-    },1000)
+    },800)
     setTimeout(()=> {
         createdCard.style.boxShadow = "0px 3px 10px -3px  rgba(0, 0, 0, 0.1)"
-    },2000)
+    },1600)
 }
 </script>
 
@@ -119,6 +122,9 @@ const createCard = ():void => {
     padding-right: 25px;
     padding-top: 10px;
     border-left:3px solid #fafafa;
+    .inputContainer {
+      margin-top: 300px;
+    }
   }
 }
 </style>
