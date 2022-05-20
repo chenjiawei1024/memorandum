@@ -20,9 +20,18 @@
     </div>
     <!-- 右侧输入框 -->
     <div class="rightSide">
-        <move-card id="card"></move-card>
+        <move-card id="card">
+          <template #title>
+              {{createdCardTitle}}
+            </template>
+            <template #default>
+              {{createdCardText}}
+            </template>
+        </move-card>
         <div class="inputContainer">
-          <el-input type="textarea"></el-input>
+          <el-input ref="inputTitle" v-model="createdCardTitle" clearable>
+          </el-input>
+          <el-input type="textarea" v-model="createdCardText" clearable></el-input>
           <el-button @click="createCard">生成卡片</el-button>
         </div>
         
@@ -34,6 +43,8 @@
 import { reactive, ref } from 'vue';
 import getElementPosition from '../tools/getElPosition'
 import MoveCard from '../components/MoveCard.vue';
+
+//box逻辑段
 const subtitles = reactive([
   'Today',
   'Tomorrow',
@@ -44,13 +55,19 @@ const containers = reactive<string[]>([
   "card1","card2","card3","card4","card5","card6","card7","card8","card9"
 ])
 
+// 创建卡片逻辑段
+let createdCardText = ref<string>();
+let createdCardTitle = ref<string>();
+const inputTitle = ref(null);
+console.log(inputTitle.value);
+
 const createCard = ():void => {
     const createdCard = document.getElementById("card") as HTMLDivElement;
     const card_container = document.getElementById("card1") as HTMLDivElement;
     const prevLeft: number = getElementPosition(createdCard)[0];
     const prevtop: number = getElementPosition(createdCard)[1];
     createdCard.style.transition= "all 0.8s";
-    createdCard.style.boxShadow = "8px 8px 8px grey"
+    createdCard.style.boxShadow = "8px 8px 8px rgba(0, 0, 0, 0.1)"
     setTimeout(()=> {
       createdCard.style.left = card_container.offsetLeft - prevLeft - 3 + "px"
       createdCard.style.top = card_container.offsetTop - prevtop + "px"
