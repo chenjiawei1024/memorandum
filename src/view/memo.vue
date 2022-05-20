@@ -58,23 +58,30 @@ const containers = reactive<string[]>([
 // 创建卡片逻辑段
 let createdCardText = ref<string>();
 let createdCardTitle = ref<string>();
-const inputTitle = ref(null);
-console.log(inputTitle.value);
+let cardIndex = ref<number>(1);
 
 const createCard = ():void => {
-    const createdCard = document.getElementById("card") as HTMLDivElement;
-    const card_container = document.getElementById("card1") as HTMLDivElement;
-    const prevLeft: number = getElementPosition(createdCard)[0];
-    const prevtop: number = getElementPosition(createdCard)[1];
-    createdCard.style.transition= "all 0.8s";
-    createdCard.style.boxShadow = "8px 8px 8px rgba(0, 0, 0, 0.1)"
-    setTimeout(()=> {
-      createdCard.style.left = card_container.offsetLeft - prevLeft - 3 + "px"
-      createdCard.style.top = card_container.offsetTop - prevtop + "px"
-    },800)
-    setTimeout(()=> {
-        createdCard.style.boxShadow = "0px 3px 10px -3px  rgba(0, 0, 0, 0.1)"
-    },1600)
+  const createdCard = document.getElementById("card") as HTMLDivElement;
+  const card_container = document.getElementById(`card${cardIndex.value}`) as HTMLDivElement;
+  //创建一个新的卡片
+  const rightSide = document.querySelector(".rightSide")
+  const newCard = createdCard.cloneNode(true) as HTMLDivElement;
+  rightSide?.appendChild(newCard);
+  const prevLeft: number = getElementPosition(newCard)[0];
+  const prevtop: number = getElementPosition(newCard)[1];
+  newCard.style.transition= "all 0.8s";
+  newCard.style.boxShadow = "8px 8px 8px rgba(0, 0, 0, 0.1)"
+  setTimeout(()=> {
+    newCard.style.left = card_container.offsetLeft - prevLeft - 3 + "px"
+    newCard.style.top = card_container.offsetTop - prevtop + "px"
+  },800)
+  setTimeout(()=> {
+      newCard.style.boxShadow = "0px 3px 10px -3px  rgba(0, 0, 0, 0.1)"
+      newCard.style.transition= "";
+  },1600)
+  setTimeout(() => {
+    cardIndex.value++;
+  },2400)
 }
 </script>
 
