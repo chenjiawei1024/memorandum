@@ -4,7 +4,7 @@
     <div class="main" id="main">
       <div class="titleBoxContainer">
         <div class="title">
-          <img src="../assets/image/right.svg">
+          <img src="../assets/image/icon/navIcon/right.svg">
           <h1>Daily Task</h1>
         </div>
         <p>something</p>
@@ -20,7 +20,7 @@
     </div>
     <!-- 右侧输入框 -->
     <div class="rightSide">
-        <move-card id="card">
+        <move-card id="card" class="card" :icon="iconSrc">
           <template #title>
               {{createdCardTitle}}
             </template>
@@ -56,6 +56,7 @@ const containers = reactive<string[]>([
 ])
 
 // 创建卡片逻辑段
+let iconSrc = ref<string>("../assets/image/icon/status/game.svg");
 let createdCardText = ref<string>();
 let createdCardTitle = ref<string>();
 let cardIndex = ref<number>(1);
@@ -66,21 +67,29 @@ const createCard = ():void => {
   //创建一个新的卡片
   const rightSide = document.querySelector(".rightSide")
   const newCard = createdCard.cloneNode(true) as HTMLDivElement;
+  //暂时隐藏原卡片,同时清空原卡片内容
+  createdCard.style.display = "none"
+  createdCardText.value = ""
+  createdCardTitle.value = ""
   rightSide?.appendChild(newCard);
   const prevLeft: number = getElementPosition(newCard)[0];
   const prevtop: number = getElementPosition(newCard)[1];
   newCard.style.transition= "all 0.8s";
   newCard.style.boxShadow = "8px 8px 8px rgba(0, 0, 0, 0.1)"
+  newCard.style.transform = "rotate(5deg)"
   setTimeout(()=> {
     newCard.style.left = card_container.offsetLeft - prevLeft - 3 + "px"
     newCard.style.top = card_container.offsetTop - prevtop + "px"
   },800)
   setTimeout(()=> {
-      newCard.style.boxShadow = "0px 3px 10px -3px  rgba(0, 0, 0, 0.1)"
+      newCard.style.boxShadow = "0px 3px 10px -3px rgba(0, 0, 0, 0.1)"
+      newCard.style.transform = "rotate(0deg)"
       newCard.style.transition= "";
   },1600)
   setTimeout(() => {
     cardIndex.value++;
+    //显示原卡片
+    createdCard.style.display = "block"
   },2400)
 }
 </script>
@@ -148,6 +157,10 @@ const createCard = ():void => {
     border-left:3px solid #fafafa;
     .inputContainer {
       margin-top: 300px;
+    }
+    .card {
+      left:22%;
+      top:10%;
     }
   }
 }

@@ -5,9 +5,9 @@
             <div class="leftSide">
                 <div class="idCard"></div>
                 <div class="settingBox">
-                    <div class="setting"><img style="margin-right: 7px" src="../assets/image/dashboard.svg"> dashboard</div>
-                    <div class="setting"><img style="margin-right: 7px" src="../assets/image/setting.svg"> setting</div>
-                    <div class="setting"><img style="margin-right: 7px" src="../assets/image/activity.svg"> activities</div>
+                    <div class="setting"><img style="margin-right: 7px" src="../assets/image/icon/navIcon/dashboard.svg"> dashboard</div>
+                    <div class="setting"><img style="margin-right: 7px" src="../assets/image/icon/navIcon/setting.svg"> setting</div>
+                    <div class="setting"><img style="margin-right: 7px" src="../assets/image/icon/navIcon/activity.svg"> activities</div>
                 </div>
                 <div class="navList">
                     <nav-item v-for="item in navlist" key="item">{{item}}</nav-item>
@@ -127,13 +127,6 @@ const navlist: String[] = reactive([
             }
         }
     }
-}
-.newButton {
-    margin-bottom: 30px;
-}
-.card {
-    width: 150px;
-    height: 115px;
 }
 
 </style>>

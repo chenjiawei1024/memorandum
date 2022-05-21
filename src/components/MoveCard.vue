@@ -1,5 +1,8 @@
 <template>
-    <div class="card" id="card" ref="card" @mouseup="" @mousedown="">
+    <div class="card" id="card" ref="card">
+        <div class="iconContainer">
+            <img :src="icon">
+        </div>
         <div class="title">
             <slot name="title"></slot>
         </div>
@@ -10,7 +13,18 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
+
+type Props = {
+    icon: string
+} 
+
+const props = defineProps<Props>()
+console.log(props.icon)
+
+// let iconSrc = ref<string>();
+// iconSrc.value = `../assets/image/icon/status/${icon}.svg`
+
 
 
 </script>
@@ -29,6 +43,12 @@ import { ref, onMounted } from 'vue';
     box-shadow: 0px 3px 10px -3px  rgba(0, 0, 0, 0.1);
     transition: all 1s;
     // transition: left,right 1s ease-in-out 1s;
+    .iconContainer {
+        width:24px;
+        height:24px;
+        border-radius:50%;
+        background-color:#f3f5f7;
+    }
     .title {
         box-sizing: border-box;
         height: 30px;

@@ -1,6 +1,6 @@
 <template>
     <div class="navItem">
-        <img style="margin-right: 4px" src="../assets/image/arrow.svg">
+        <img style="margin-right: 4px" src="../assets/image/icon/navIcon/arrow.svg">
         <slot></slot>
     </div>
 </template>
