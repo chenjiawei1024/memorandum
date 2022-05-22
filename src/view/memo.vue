@@ -4,8 +4,21 @@
     <div class="main" id="main">
       <div class="titleBoxContainer">
         <div class="title">
-          <img src="../assets/image/icon/navIcon/right.svg">
-          <h1>Daily Task</h1>
+          <div class="title-left">
+            <img style="margin-right:16px" src="../assets/image/icon/navIcon/right.svg">
+            <h1>Daily Task</h1>
+          </div>
+          <div class="title-right">
+            <div class="iconContainer">
+              <img src="../assets/image/icon/top/search.svg">
+            </div>
+            <div class="iconContainer">
+              <img src="../assets/image/icon/top/hint.svg">
+            </div>
+            <div class="iconContainer">
+              <img src="../assets/image/icon/top/boy.svg">
+            </div>
+          </div>
         </div>
         <p>something</p>
       </div>
@@ -27,15 +40,15 @@
         </move-card>
         <div class="inputContainer">
           <div class="statusContainer">
-            <div>status: </div>
+            <div>status🔥: </div>
             <ul>
               <li v-for="item in status" @click="iconCLick(item)">
                 <img :src="`./src/assets/image/icon/status/${item}.svg`">
               </li>
             </ul>
           </div>
-          <el-input type="textarea" v-model="createdCardText" clearable></el-input>
-          <el-button @click="createCard">生成卡片</el-button>
+          <el-input type="textarea" v-model="createdCardText" rows="8" clearable></el-input>
+          <el-button @click="createCard">publish</el-button>
         </div>
         
     </div>
@@ -78,6 +91,14 @@ let cardIndex = ref<number>(1);
 const createCard = ():void => {
   const createdCard = document.getElementById("card") as HTMLDivElement;
   const card_container = document.getElementById(`card${cardIndex.value}`) as HTMLDivElement;
+  if(cardIndex.value > 8) {
+    createdCard.style.animationName = "refuse-move";
+    ElMessage.error("ops, you have too much work to do!");
+      setTimeout(()=> {
+        createdCard.style.animationName = "";
+      },200)
+      return
+  }
   //创建一个新的卡片
   const rightSide = document.querySelector(".rightSide")
   const newCard = createdCard.cloneNode(true) as HTMLDivElement;
@@ -123,8 +144,31 @@ const createCard = ():void => {
       }
       .title {
         display: flex;
-        img {
-          margin-right: 16px;
+        align-items: center;
+        justify-content: space-between;
+        .title-left {
+          width: 300px;
+          display: flex;
+        }
+        .title-right {
+          width: 200px;
+          display: flex;
+          justify-content: end;
+          .iconContainer {
+            display: flex;
+            justify-content: center;
+            margin-right: 12px;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f3f5f7;
+            transition: all 0.3s;
+            cursor: pointer;
+            &:hover {
+              background-color: #fde9e9;
+            }
+          }
         }
       }
     }
@@ -169,10 +213,12 @@ const createCard = ():void => {
     padding-top: 10px;
     border-left:3px solid #fafafa;
     .inputContainer {
-      margin-top: 300px;
+      margin-top: 220px;
+      height: 320px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: space-around;
       .statusContainer {
         display: flex;
         align-items: center;

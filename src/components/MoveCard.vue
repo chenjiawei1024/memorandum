@@ -41,6 +41,8 @@ const iconSrc = computed(() => `./src/assets/image/icon/status/${props.icon}.svg
     border-radius: 5%;
     box-shadow: 0px 3px 10px -3px  rgba(0, 0, 0, 0.1);
     transition: all 1s;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
     .titleContainer {
         display: flex;
         justify-content: space-between;
