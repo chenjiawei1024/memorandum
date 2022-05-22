@@ -21,16 +21,19 @@
     <!-- 右侧输入框 -->
     <div class="rightSide">
         <move-card id="card" class="card" :icon="iconSrc">
-          <template #title>
-              {{createdCardTitle}}
-            </template>
             <template #default>
               {{createdCardText}}
             </template>
         </move-card>
         <div class="inputContainer">
-          <el-input ref="inputTitle" v-model="createdCardTitle" clearable>
-          </el-input>
+          <div class="statusContainer">
+            <div>status: </div>
+            <ul>
+              <li v-for="item in status" @click="iconCLick(item)">
+                <img :src="`./src/assets/image/icon/status/${item}.svg`">
+              </li>
+            </ul>
+          </div>
           <el-input type="textarea" v-model="createdCardText" clearable></el-input>
           <el-button @click="createCard">生成卡片</el-button>
         </div>
@@ -41,7 +44,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import getElementPosition from '../tools/getElPosition'
+import getElementPosition from '../assets/tools/getElPosition'
 import MoveCard from '../components/MoveCard.vue';
 
 //box逻辑段
@@ -55,10 +58,21 @@ const containers = reactive<string[]>([
   "card1","card2","card3","card4","card5","card6","card7","card8","card9"
 ])
 
+let iconSrc = ref<string>("game");
+
+//右侧输入框status切换
+const status = reactive([
+  'game',
+  'sport',
+  'cloth'
+])
+
+const iconCLick = (item: string) => {
+  iconSrc.value = item;
+}
+
 // 创建卡片逻辑段
-let iconSrc = ref<string>("../assets/image/icon/status/game.svg");
 let createdCardText = ref<string>();
-let createdCardTitle = ref<string>();
 let cardIndex = ref<number>(1);
 
 const createCard = ():void => {
@@ -70,7 +84,6 @@ const createCard = ():void => {
   //暂时隐藏原卡片,同时清空原卡片内容
   createdCard.style.display = "none"
   createdCardText.value = ""
-  createdCardTitle.value = ""
   rightSide?.appendChild(newCard);
   const prevLeft: number = getElementPosition(newCard)[0];
   const prevtop: number = getElementPosition(newCard)[1];
@@ -157,6 +170,29 @@ const createCard = ():void => {
     border-left:3px solid #fafafa;
     .inputContainer {
       margin-top: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .statusContainer {
+        display: flex;
+        align-items: center;
+        width: 200px;
+        ul {
+          display: flex;
+          justify-content: start;
+          li {
+            list-style:none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            cursor: pointer;
+            &:hover {
+              background-color: #fde9e9;
+            }
+          }
+        }
+      }
     }
     .card {
       left:22%;
