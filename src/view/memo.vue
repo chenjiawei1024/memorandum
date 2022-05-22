@@ -48,7 +48,7 @@
             </ul>
           </div>
           <el-input type="textarea" v-model="createdCardText" rows="8" clearable></el-input>
-          <el-button @click="createCard">publish</el-button>
+          <el-button @click="createCardwithThrottle()">publish</el-button>
         </div>
         
     </div>
@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import getElementPosition from '../assets/tools/getElPosition'
+import throttle from "../assets/tools/throttle";
 import MoveCard from '../components/MoveCard.vue';
 
 //box逻辑段
@@ -126,6 +127,8 @@ const createCard = ():void => {
     createdCard.style.display = "block"
   },2400)
 }
+// 包一层节流
+const createCardwithThrottle = throttle(createCard, 2400);
 </script>
 
 <style lang="less" scoped>
