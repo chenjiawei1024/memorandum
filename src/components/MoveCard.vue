@@ -4,8 +4,14 @@
             <div class="iconContainer">
                 <img :src="iconSrc">
             </div>
-            <div class="ellipsisContainer">
+            <div class="ellipsisContainer" @click="config($event)" @mouseleave="configleave($event)">
                 <img src="../assets/image/icon/navIcon/ellipsis.svg">
+                <div class="config">
+                    <img src="../assets/image/img/edit.svg">
+                </div>
+                <div style="top: 60px;" class="config">
+                    <img src="../assets/image/img/delete.svg">
+                </div>
             </div>
         </div>
         <div class="text">
@@ -20,9 +26,25 @@ import { ref, computed } from 'vue';
 type Props = {
     icon: string
 } 
-
 const props = defineProps<Props>()
 const iconSrc = computed(() => `./src/assets/image/icon/status/${props.icon}.svg`)
+
+const config = (e: MouseEvent) => {
+    let target = e.currentTarget as HTMLDivElement;
+    let hiddenObjects = document.querySelectorAll(".config") as NodeListOf<HTMLDivElement>;
+    hiddenObjects[0].style.display = "flex"
+    hiddenObjects[1].style.display = "flex"
+    target.style.height = 100 + "px";
+}
+
+const configleave = (e: MouseEvent) => {
+    let target = e.currentTarget as HTMLDivElement;
+    let hiddenObjects = document.querySelectorAll(".config") as NodeListOf<HTMLDivElement>;
+    hiddenObjects[0].style.display = "none"
+    hiddenObjects[1].style.display = "none"
+    target.style.height = 24 + "px";
+    
+}
 
 
 
@@ -54,12 +76,26 @@ const iconSrc = computed(() => `./src/assets/image/icon/status/${props.icon}.svg
             background-color:#f3f5f7;
         }
         .ellipsisContainer {
+            position: relative;
             width:24px;
             height:24px;
-            border-radius:50%;
+            border-radius:12px;
             transition: background-color 0.5s;
             &:hover {
                 background-color:#f3f5f7;
+            }
+            & div {
+                position: absolute;
+                top: 30px;
+                width: 24px;
+                height: 24px;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                &:hover {
+                    background-color: #fde9e9;
+                }
             }
         }
     }

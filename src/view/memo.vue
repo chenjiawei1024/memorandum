@@ -103,6 +103,10 @@ const createCard = ():void => {
   //创建一个新的卡片
   const rightSide = document.querySelector(".rightSide")
   const newCard = createdCard.cloneNode(true) as HTMLDivElement;
+  let ele = document.createElement("move-card");
+  console.log(ele)
+  console.log(newCard)
+  card_container.appendChild(ele);
   //暂时隐藏原卡片,同时清空原卡片内容
   createdCard.style.display = "none"
   createdCardText.value = ""
