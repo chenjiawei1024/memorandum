@@ -33,7 +33,7 @@
     </div>
     <!-- 右侧输入框 -->
     <div class="rightSide">
-        <move-card id="card" class="card" :icon="iconSrc">
+        <move-card id="card" class="card" :icon="iconSrc" ref="card">
             <template #default>
               {{createdCardText}}
             </template>
@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { reactive, ref, defineCustomElement, onMounted } from 'vue';
 import getElementPosition from '../assets/tools/getElPosition'
 import throttle from "../assets/tools/throttle";
 import MoveCard from '../components/MoveCard.vue';
@@ -103,10 +103,6 @@ const createCard = ():void => {
   //创建一个新的卡片
   const rightSide = document.querySelector(".rightSide")
   const newCard = createdCard.cloneNode(true) as HTMLDivElement;
-  let ele = document.createElement("move-card");
-  console.log(ele)
-  console.log(newCard)
-  card_container.appendChild(ele);
   //暂时隐藏原卡片,同时清空原卡片内容
   createdCard.style.display = "none"
   createdCardText.value = ""
@@ -205,6 +201,8 @@ const createCardwithThrottle = throttle(createCard, 2400);
         overflow-y: scroll;
       }
       .box {
+        position: relative;
+        box-sizing: border-box;
         border-radius: 5%;
         border: 3px solid #f3f5f7;
       }

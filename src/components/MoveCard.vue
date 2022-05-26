@@ -29,12 +29,12 @@ type Props = {
 const props = defineProps<Props>()
 const iconSrc = computed(() => `./src/assets/image/icon/status/${props.icon}.svg`)
 
-const config = (e: MouseEvent) => {
+const config = function(e: MouseEvent) {
     let target = e.currentTarget as HTMLDivElement;
     let hiddenObjects = document.querySelectorAll(".config") as NodeListOf<HTMLDivElement>;
     hiddenObjects[0].style.display = "flex"
     hiddenObjects[1].style.display = "flex"
-    target.style.height = 100 + "px";
+    target.style.height = 90 + "px";
 }
 
 const configleave = (e: MouseEvent) => {
