@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, defineCustomElement, onMounted } from 'vue';
+import { reactive, ref, defineCustomElement, onMounted, getCurrentInstance } from 'vue';
 import getElementPosition from '../assets/tools/getElPosition'
 import throttle from "../assets/tools/throttle";
 import MoveCard from '../components/MoveCard.vue';
