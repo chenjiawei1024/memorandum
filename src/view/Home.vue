@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import NavItem from '../components/NavItem.vue';
+import NavItem from '../components/NavItem/NavItem.vue';
 import { reactive,ref } from 'vue';
 const navlist: String[] = reactive([
     "Daily Task",

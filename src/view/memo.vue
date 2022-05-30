@@ -5,18 +5,18 @@
       <div class="titleBoxContainer">
         <div class="title">
           <div class="title-left">
-            <img style="margin-right:16px" src="../assets/image/icon/navIcon/right.svg">
+            <img style="margin-right:16px" src="@/assets/image/icon/navIcon/right.svg">
             <h1>Daily Task</h1>
           </div>
           <div class="title-right">
             <div class="iconContainer">
-              <img src="../assets/image/icon/top/search.svg">
+              <img src="@/assets/image/icon/top/search.svg">
             </div>
             <div class="iconContainer">
-              <img src="../assets/image/icon/top/hint.svg">
+              <img src="@/assets/image/icon/top/hint.svg">
             </div>
             <div class="iconContainer">
-              <img src="../assets/image/icon/top/boy.svg">
+              <img src="@/assets/image/icon/top/boy.svg">
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
           <div class="subtitle" v-for="item in subtitles" key="item">{{item}}</div>
         </div>
         <div class="boxContainer">
-          <div class="box" v-for="item in containers" :id="item"></div>
+          <card-container v-for="(index,item) in containers" :id="item"></card-container>
         </div>
       </div>
     </div>
@@ -50,7 +50,6 @@
           <el-input type="textarea" v-model="createdCardText" rows="8" clearable></el-input>
           <el-button @click="createCardwithThrottle()">publish</el-button>
         </div>
-        
     </div>
   </div>
 </template>
@@ -59,7 +58,8 @@
 import { reactive, ref, defineCustomElement, onMounted, getCurrentInstance } from 'vue';
 import getElementPosition from '../assets/tools/getElPosition'
 import throttle from "../assets/tools/throttle";
-import MoveCard from '../components/MoveCard.vue';
+import MoveCard from '../components/MoveCard/MoveCard.vue';
+import CardContainer from '../components/CardContainer/CardContainer.vue';
 
 //box逻辑段
 const subtitles = reactive([
@@ -88,6 +88,7 @@ const iconCLick = (item: string) => {
 // 创建卡片逻辑段
 let createdCardText = ref<string>();
 let cardIndex = ref<number>(1);
+let component = ref<string>('CardContainer');
 
 const createCard = ():void => {
   const createdCard = document.getElementById("card") as HTMLDivElement;
@@ -199,12 +200,6 @@ const createCardwithThrottle = throttle(createCard, 2400);
         grid-template-rows: repeat(3,115px);
         gap: 16px;
         overflow-y: scroll;
-      }
-      .box {
-        position: relative;
-        box-sizing: border-box;
-        border-radius: 5%;
-        border: 3px solid #f3f5f7;
       }
     }
   }

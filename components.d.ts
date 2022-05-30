@@ -5,11 +5,11 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    CardContainer: typeof import('./src/components/CardContainer.vue')['default']
+    CardContainer: typeof import('./src/components/CardContainer/CardContainer.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElInput: typeof import('element-plus/es')['ElInput']
-    MoveCard: typeof import('./src/components/MoveCard.vue')['default']
-    NavItem: typeof import('./src/components/NavItem.vue')['default']
+    MoveCard: typeof import('./src/components/MoveCard/MoveCard.vue')['default']
+    NavItem: typeof import('./src/components/NavItem/NavItem.vue')['default']
     NavList: typeof import('./src/components/NavList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

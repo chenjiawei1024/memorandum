@@ -1,16 +1,16 @@
 <template>
-    <div class="card" id="card" ref="card">
+    <div class="card" id="card" ref="card" @drag="dragAction($event)">
         <div class="titleContainer">
             <div class="iconContainer">
                 <img :src="iconSrc">
             </div>
             <div class="ellipsisContainer" @click="config($event)" @mouseleave="configleave($event)">
-                <img src="../assets/image/icon/navIcon/ellipsis.svg">
+                <img src="@/assets/image/icon/navIcon/ellipsis.svg">
                 <div class="config">
-                    <img src="../assets/image/img/edit.svg">
+                    <img src="@/assets/image/img/edit.svg">
                 </div>
                 <div style="top: 60px;" class="config">
-                    <img src="../assets/image/img/delete.svg">
+                    <img src="@/assets/image/img/delete.svg">
                 </div>
             </div>
         </div>
@@ -29,7 +29,11 @@ type Props = {
 const props = defineProps<Props>()
 const iconSrc = computed(() => `./src/assets/image/icon/status/${props.icon}.svg`)
 
-const config = function(e: MouseEvent) {
+const dragAction = (e: MouseEvent) => {
+
+}
+
+const config = (e: MouseEvent) => {
     let target = e.currentTarget as HTMLDivElement;
     let hiddenObjects = document.querySelectorAll(".config") as NodeListOf<HTMLDivElement>;
     hiddenObjects[0].style.display = "flex"
