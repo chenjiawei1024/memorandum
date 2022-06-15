@@ -27,7 +27,9 @@
           <div class="subtitle" v-for="item in subtitles" key="item">{{item}}</div>
         </div>
         <div class="boxContainer">
-          <card-container v-for="(index,item) in containers" :id="item"></card-container>
+          <card-container v-for="(index,item) in containers" :id="item">
+              <move-card></move-card>
+          </card-container>
         </div>
       </div>
     </div>
@@ -43,7 +45,7 @@
             <div>status🔥: </div>
             <ul>
               <li v-for="item in status" @click="iconCLick(item)">
-                <img :src="`./src/assets/image/icon/status/${item}.svg`">
+                <img :src="`@/assets/image/icon/status/${item}.svg`">
               </li>
             </ul>
           </div>
@@ -93,6 +95,7 @@ let component = ref<string>('CardContainer');
 const createCard = ():void => {
   const createdCard = document.getElementById("card") as HTMLDivElement;
   const card_container = document.getElementById(`card${cardIndex.value}`) as HTMLDivElement;
+  // 超过9个则无法添加，提示警告。
   if(cardIndex.value > 8) {
     createdCard.style.animationName = "refuse-move";
     ElMessage.error("ops, you have too much work to do!");
@@ -241,6 +244,7 @@ const createCardwithThrottle = throttle(createCard, 2400);
       }
     }
     .card {
+      position: absolute;
       left:22%;
       top:10%;
     }

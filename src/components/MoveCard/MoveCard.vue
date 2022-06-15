@@ -1,5 +1,5 @@
 <template>
-    <div class="card" id="card" ref="card" @drag="dragAction($event)">
+    <div class="card" id="card" ref="card" @click="moveCard($event)">
         <div class="titleContainer">
             <div class="iconContainer">
                 <img :src="iconSrc">
@@ -29,23 +29,37 @@ type Props = {
 const props = defineProps<Props>()
 const iconSrc = computed(() => `./src/assets/image/icon/status/${props.icon}.svg`)
 
-const dragAction = (e: MouseEvent) => {
-
+const moveCard = (e: MouseEvent) => {
+    
 }
 
+// 点击展开设置
 const config = (e: MouseEvent) => {
-    let target = e.currentTarget as HTMLDivElement;
-    let hiddenObjects = document.querySelectorAll(".config") as NodeListOf<HTMLDivElement>;
-    hiddenObjects[0].style.display = "flex"
-    hiddenObjects[1].style.display = "flex"
+    let target = e.currentTarget as HTMLElement;
+    let hiddenObjects = target.children
+    let children: HTMLElement[] = []
+    for(let i=0;i<hiddenObjects.length;i++) {
+    if (hiddenObjects[i].nodeType == 1) {
+        children.push(hiddenObjects[i] as HTMLElement);
+    }
+    }
+    children[1].style.display = "flex"
+    children[2].style.display = "flex"
     target.style.height = 90 + "px";
 }
 
+//离开收缩设置
 const configleave = (e: MouseEvent) => {
     let target = e.currentTarget as HTMLDivElement;
-    let hiddenObjects = document.querySelectorAll(".config") as NodeListOf<HTMLDivElement>;
-    hiddenObjects[0].style.display = "none"
-    hiddenObjects[1].style.display = "none"
+    let hiddenObjects = target.children
+    let children: HTMLElement[] = []
+    for(let i=0;i<hiddenObjects.length;i++) {
+    if (hiddenObjects[i].nodeType == 1) {
+        children.push(hiddenObjects[i] as HTMLElement);
+    }
+    }
+    children[1].style.display = "none"
+    children[2].style.display = "none"
     target.style.height = 24 + "px";
     
 }
@@ -57,8 +71,8 @@ const configleave = (e: MouseEvent) => {
 <style lang="less" scoped>
 .card{
     position: absolute;
-    left: 0;
-    top: 0;
+    left: -3px;
+    top: -3px;
     width: 153px;
     height: 116px;
     background-color: #ffffff;
