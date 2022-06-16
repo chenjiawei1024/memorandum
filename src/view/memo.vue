@@ -26,11 +26,12 @@
         <div class="subtitleBox">
           <div class="subtitle" v-for="item in subtitles" key="item">{{item}}</div>
         </div>
-        <div class="boxContainer">
-          <card-container v-for="(index,item) in containers" :id="item">
-              <move-card></move-card>
-          </card-container>
-        </div>
+          <transition-group name="list" tag="div" class="boxContainer">
+            <div v-for="(item,index) in containers" :id="item" :key="item">
+            {{item}}
+              <!-- <move-card></move-card> -->
+            </div>
+          </transition-group>
       </div>
     </div>
     <!-- 右侧输入框 -->
@@ -48,6 +49,8 @@
                 <img :src="`@/assets/image/icon/status/${item}.svg`">
               </li>
             </ul>
+            <button @click="clickButton">change</button>
+            <button @click="clickButton2">change</button>
           </div>
           <el-input type="textarea" v-model="createdCardText" rows="8" clearable></el-input>
           <el-button @click="createCardwithThrottle()">publish</el-button>
@@ -90,7 +93,6 @@ const iconCLick = (item: string) => {
 // 创建卡片逻辑段
 let createdCardText = ref<string>();
 let cardIndex = ref<number>(1);
-let component = ref<string>('CardContainer');
 
 const createCard = ():void => {
   const createdCard = document.getElementById("card") as HTMLDivElement;
@@ -106,24 +108,24 @@ const createCard = ():void => {
   }
   //创建一个新的卡片
   const rightSide = document.querySelector(".rightSide")
-  const newCard = createdCard.cloneNode(true) as HTMLDivElement;
+  // const newCard = createdCard.cloneNode(true) as HTMLDivElement;
   //暂时隐藏原卡片,同时清空原卡片内容
   createdCard.style.display = "none"
   createdCardText.value = ""
-  rightSide?.appendChild(newCard);
-  const prevLeft: number = getElementPosition(newCard)[0];
-  const prevtop: number = getElementPosition(newCard)[1];
-  newCard.style.transition= "all 0.8s";
-  newCard.style.boxShadow = "8px 8px 8px rgba(0, 0, 0, 0.1)"
-  newCard.style.transform = "rotate(5deg)"
+  // rightSide?.appendChild(newCard);
+  // const prevLeft: number = getElementPosition(newCard)[0];
+  // const prevtop: number = getElementPosition(newCard)[1];
+  // newCard.style.transition= "all 0.8s";
+  // newCard.style.boxShadow = "8px 8px 8px rgba(0, 0, 0, 0.1)"
+  // newCard.style.transform = "rotate(5deg)"
   setTimeout(()=> {
-    newCard.style.left = card_container.offsetLeft - prevLeft - 3 + "px"
-    newCard.style.top = card_container.offsetTop - prevtop + "px"
+    // newCard.style.left = card_container.offsetLeft - prevLeft - 3 + "px"
+    // newCard.style.top = card_container.offsetTop - prevtop + "px"
   },800)
   setTimeout(()=> {
-      newCard.style.boxShadow = "0px 3px 10px -3px rgba(0, 0, 0, 0.1)"
-      newCard.style.transform = "rotate(0deg)"
-      newCard.style.transition= "";
+      // newCard.style.boxShadow = "0px 3px 10px -3px rgba(0, 0, 0, 0.1)"
+      // newCard.style.transform = "rotate(0deg)"
+      // newCard.style.transition= "";
   },1600)
   setTimeout(() => {
     cardIndex.value++;
@@ -133,6 +135,15 @@ const createCard = ():void => {
 }
 // 包一层节流
 const createCardwithThrottle = throttle(createCard, 2400);
+
+const clickButton = ()=> {
+  containers.pop();
+  console.log(containers)
+}
+const clickButton2 = ()=> {
+  containers.unshift("card10");
+  console.log(containers)
+}
 </script>
 
 <style lang="less" scoped>
@@ -203,6 +214,7 @@ const createCardwithThrottle = throttle(createCard, 2400);
         grid-template-rows: repeat(3,115px);
         gap: 16px;
         overflow-y: scroll;
+
       }
     }
   }
@@ -249,5 +261,19 @@ const createCardwithThrottle = throttle(createCard, 2400);
       top:10%;
     }
   }
+}
+// .list-move, /* 对移动中的元素应用的过渡 */
+// .list-enter-active,
+// .list-leave-active {
+//   transition: all 0.5s ease;
+// }
+
+// .list-enter-from,
+// .list-leave-to {
+//   opacity: 0;
+//   transform: translateX(30px);
+// }
+.list-move {
+  transition: all 1s;
 }
 </style>
